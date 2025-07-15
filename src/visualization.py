@@ -1,11 +1,17 @@
 import matplotlib.pyplot as plt
 from matplotlib.animation import FuncAnimation
 
+try:
+    # Only available in notebook environments
+    from IPython.display import HTML
+except ImportError:  # pragma: no cover - IPython not installed
+    HTML = None
+
 from .sensor import Sensor
 from .monitor import Monitor
 
 
-def main():
+def main(inline: bool = False):
     sensors = [
         Sensor("Water Level", "m", 0.0, 10.0),
         Sensor("Flow Rate", "m3/s", 0.0, 5.0),
@@ -38,6 +44,9 @@ def main():
         return list(lines.values())
 
     ani = FuncAnimation(fig, update, interval=1000)
+    if inline and HTML is not None:
+        plt.close(fig)
+        return HTML(ani.to_jshtml())
     plt.show()
 
 
