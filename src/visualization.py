@@ -1,3 +1,5 @@
+import time
+
 import matplotlib.pyplot as plt
 from matplotlib.animation import FuncAnimation
 
@@ -29,12 +31,13 @@ def main(inline: bool = False):
 
     start_time = None
 
-    def update(frame):
+    def update(_):
         nonlocal start_time
         if start_time is None:
-            start_time = frame
+            start_time = time.time()
         monitor.sample()
-        elapsed = frame - start_time
+        current_time = time.time()
+        elapsed = current_time - start_time
         for name, line in lines.items():
             data = monitor.data[name]
             times = [t - start_time for t, _ in data]
@@ -43,7 +46,7 @@ def main(inline: bool = False):
         ax.set_xlim(max(0, elapsed - 60), elapsed + 5)
         return list(lines.values())
 
-    ani = FuncAnimation(fig, update, interval=1000)
+    ani = FuncAnimation(fig, update, interval=1000, cache_frame_data=False)
     if inline and HTML is not None:
         plt.close(fig)
         return HTML(ani.to_jshtml())
