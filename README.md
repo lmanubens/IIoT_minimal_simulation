@@ -15,13 +15,18 @@ pip install -r requirements.txt
 
 ## Running the Simulation
 
-Execute the visualization script which also runs the sensor simulation:
+The simulation can be run either as a script or within a Jupyter notebook.
+
+To run the standalone script:
 
 ```bash
 python -m src.visualization
 ```
 
 A window will open showing a live graph of each sensor's output.
+
+Alternatively, open `Water_IIoT_Simulation.ipynb` in Jupyter to interactively
+explore the same simulation.
 
 ## Directory Structure
 
