@@ -23,6 +23,15 @@ python -m src.visualization
 
 A window will open showing a live graph of each sensor's output.
 
+When running in a Jupyter environment such as Google Colab, use:
+
+```python
+from src.visualization import main
+main(inline=True)
+```
+
+This returns an HTML animation that displays directly in the notebook.
+
 ## Directory Structure
 
 - `src/sensor.py` – definition of a simple sensor model
